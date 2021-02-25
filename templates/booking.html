@@ -1,0 +1,62 @@
+{% extends "base/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="col-md-12 mt-3">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">วันที่</th>
+                        <th scope="col">ห้องพัก</th>
+                        <th scope="col">ราคารวม</th>
+                        <th scope="col">สถานะ</th>
+                        <th scope="col">การทำงาน</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for data in dataroom %}
+                      <tr>
+                        <th scope="row">{{ data["date"].strftime("%d %B %Y %H:%M:%S") }}</th>
+                        <td>{{ data["details"]["roomid"] }}</td>
+                        <td>{{ data["payment"]["payment_ammout"] }}</td>
+                        <td>{% if data["status"] == "SUCCESSPAYMENT" %}
+                          <div class="text-success">ชำระเงินสำเร็จ</div>
+                          {% elif data["status"] == "WAITINGPAYMENT" %}
+                          <div class="text-warning">รอดำเนินการชำระเงิน</div>
+                          {% else %}
+                          <div class="text-secondary">ยังไม่ได้ชำระเงิน</div>
+                          {% endif %}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" id="infobook" data-bookid="{{ data['bookid'] }}">รายละเอียดห้องพัก</button>
+                            {% if data["status"] != "SUCCESSPAYMENT" %}
+                                <button type="button" class="btn btn-success" id="payment_show" data-bookid="{{ data['bookid'] }}">สแกน QR CODE</button>
+                            {% endif %}
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+          </div>
+      </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="showdata" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="titlemodal"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body" id="dataresponse"></div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

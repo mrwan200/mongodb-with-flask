@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="col-md-12 mt-3">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="text-left">แจ้งสลิปการชำระเงิน</h4>
+                <form method="POST" id="sendpayment" enctype="multipart/form-data">
+                    <input type="hidden" id="bookid" name="bookid" value="{{ bookid }}">
+                    <div class="form-group">
+                        <label for="slipt">สลิปการชำระเงิน</label>
+                        <input type="file" class="form-control" id="slipt" name="slipt" accept="image/png, image/jpeg">
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-success btn-block">แจ้งชำระเงิน</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

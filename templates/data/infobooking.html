@@ -1,0 +1,31 @@
+<table class="table">
+    <tbody>
+      <tr>
+        <th scope="row">วันที่</th>
+        <td>{{ data_room["date"].strftime("%d %B %Y %H:%M:%S") }}</td>
+      </tr>
+      <tr>
+        <th scope="row">ชื่อห้องพัก</th>
+        <td id="pricepreview">{{ data_room["details"]["roomid"] }}</td>
+      </tr>
+      <tr>
+        <th scope="row">สถานะ</th>
+        <td>{% if data_room["status"] == "SUCCESSPAYMENT" %}
+            <div class="text-success">ชำระเงินสำเร็จ</div>
+            {% elif data_room["status"] == "WAITINGPAYMENT" %}
+            <div class="text-warning">รอดำเนินการชำระเงิน</div>
+            {% else %}
+            <div class="text-secondary">ยังไม่ได้ชำระเงิน</div>
+            {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">วันที่เข้าพัก</th>
+        <td id="pricepreview">{{ data_room["details"]["start"].strftime("%d %B %Y %H:%M:%S") }}</td>
+      </tr>
+      <tr>
+        <th scope="row">วันที่ออก</th>
+        <td id="pricepreview">{{ data_room["details"]["end"].strftime("%d %B %Y %H:%M:%S") }}</td>
+      </tr>
+    </tbody>
+</table>

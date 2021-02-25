@@ -1,0 +1,76 @@
+{% extends "base/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="col-md-12 mt-3">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">วันที่</th>
+                        <th scope="col">ห้องพัก</th>
+                        <th scope="col">ชื่อผู้พัก</th>
+                        <th scope="col">สถานะ</th>
+                        <th scope="col">การทำงาน</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in dataresponse %}
+                            <tr>
+                                <td>{{ data["booking"]["date"] }}</td>
+                                <td>{{ data["booking"]["details"]["roomid"] }}</td>
+                                <td>{{ data["users"][0]["name"] }}</td>
+                                <td>{{ data["booking"]["status"] }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-success" id="confrim" data-status="true" data-splitid="{{ data['booking']['bookid'] }}">ยืนยันการชำระเงิน</button>
+                                    <button type="button" class="btn btn-danger" id="confrim" data-status="false" data-splitid="{{ data['booking']['bookid'] }}">ยกเลิการชำระเงิน</button>
+                                    <button type="button" class="btn btn-primary" id="showslipt" data-splitid="{{  data['booking']['payment']['paymentid'] }}">ดูสลิป</button>
+                                </td>
+                            </tr>
+                        {% endfor %}    
+                    </tbody>
+                  </table>
+            </div>
+          </div>
+      </div>
+  </div>
+<!-- Modal -->
+<div class="modal fade" id="show_images" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">สลิปเงิน</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img src="" class="img-fluid" id="loadimages">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Modal -->
+<div class="modal fade" id="confrim_show" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">ยืนยันการชำระเงิน</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id="showconfrim"></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" id="confrim_send">ยืนยัน</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

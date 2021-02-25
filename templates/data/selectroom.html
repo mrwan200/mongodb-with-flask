@@ -1,0 +1,44 @@
+<table class="table">
+    <tbody>
+      <tr>
+        <th scope="row">ชื่อห้องพัก</th>
+        <td>{{ data_room["roomid"] }}</td>
+      </tr>
+      <tr>
+        <th scope="row">ราคา / วัน</th>
+        <td id="pricepreview">{{ data_room["price"] }}</td>
+      </tr>
+      <tr>
+        <th scope="row">สถานะ</th>
+        <td>{% if data_room["status"] %}
+            <div class="text-success">ว่าง</div>
+            {% else %}
+            <div class="text-danger">ไม่ว่าง</div>
+            {% endif %}
+        </td>
+      </tr>
+    </tbody>
+</table>
+<form method="POST" id="payments">
+  <input type="hidden" id="roomid" value="{{ data_room['roomid'] }}">
+  <div class="form-group">
+      <label for="start_book">เริ่มพัก</label>
+      <input type="date" class="form-control" id="start_book" required>
+  </div>
+
+  <div class="form-group">
+      <label for="end_book">สิ้นสุดพัก</label>
+      <input type="date" class="form-control" id="end_book" required>
+  </div>
+
+  <table class="table">
+      <tbody>
+        <tr>
+          <th scope="row">ราคารวม</th>
+          <td id="priceall">0 บาท</td>
+        </tr>
+      </tbody>
+  </table>
+  <button type="submit" class="btn btn-success btn-block">จองห้องพัก</button>
+</form>
+<script src="{{ url_for('static',filename='js/selectroom.js')}}"></script>

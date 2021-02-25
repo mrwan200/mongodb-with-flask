@@ -1,0 +1,21 @@
+<table class="table">
+    <tbody>
+      <tr>
+        <th scope="row">ชื่อห้องพัก</th>
+        <td>{{ data_room["roomid"] }}</td>
+      </tr>
+      <tr>
+        <th scope="row">ราคา / วัน</th>
+        <td id="pricepreview">{{ data_room["price"] }}</td>
+      </tr>
+      <tr>
+        <th scope="row">สถานะ</th>
+        <td>{% if data_room["status"] %}
+            <div class="text-success">ว่าง</div>
+            {% else %}
+            <div class="text-danger">ไม่ว่าง</div>
+            {% endif %}
+        </td>
+      </tr>
+    </tbody>
+</table>
